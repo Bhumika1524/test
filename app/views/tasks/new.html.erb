@@ -1,0 +1,41 @@
+<head>
+  <style>
+    .link{
+        text-decoration: none;
+    }
+  </style>
+</head>
+<%= form_for @task do |form| %>
+  <%= form.label :name, "Task Name: " %>
+  <%= form.text_field :name %><br/><br/>
+
+  <div>
+    <%= form.hidden_field :fromUser_id, value: current_user.id %>
+  </div>
+
+  <div id='users'>
+    <%= form.label :toUser_id, 'Assign To: ' %>
+    <%= select_tag :toUser_id, options_from_collection_for_select(@users, 'id', 'username'), class: "btn btn-secondary dropdown-toggle" %>
+  </div>
+  <br/>
+
+  <div id='task_types'>
+    <%= form.label :type_id, 'Task Type: ' %>
+    <%= select_tag :task_type_id, options_from_collection_for_select(@task_types, 'id', 'name'), class: "btn btn-secondary dropdown-toggle" %>
+  </div><br/>
+  <div id='task_status'>
+    <%= form.label :status_id, 'Task Status: ' %>
+    <%= select_tag :task_status_id, options_for_select(["Complete", "In Progress"]), class: "btn btn-secondary dropdown-toggle" %>
+  </div>
+  <br/>
+  <div>
+    <%= form.fields_for :comments do |t| %>
+      <%= render "comment_fields", :f => t %>
+    <% end %>
+    <div>
+      <br>
+      <%= link_to_add_association "Add Comment", form, :comments, class: "link" %>
+    </div><br/>
+  </div>
+  <%= form.submit 'Submit', class: "btn btn-success" %>
+<% end %>

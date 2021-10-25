@@ -1,0 +1,19 @@
+<%= form_for @task, url: url do |form| %>
+  <%= form.label :name, "Task :- " %>
+  <%= form.text_field :name %><br/><br/>
+
+  <div>
+    <%= f.collection_select :type_id, Task.(:name),:id,:name, include_blank: true %>
+  </div>
+
+  <div>
+    <%= form.fields_for :comments do |t| %>
+      <%= render "comment_fields", :f => t %>
+    <% end %>
+    <div>
+      <br>
+      <%= link_to_add_association "Add Comment", form, :comments %>
+    </div>
+  </div>
+  <%= form.submit %>
+<% end %>

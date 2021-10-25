@@ -1,0 +1,12 @@
+<head>
+  <style>
+    form{
+        padding: 20px;
+    }
+  </style>
+</head>
+<%= form_for @task_type do |form| %>
+  <%= form.label :name, "Type Name :- " %>
+  <%= form.text_field :name %><br/><br/>
+  <%= form.submit 'Submit', class: "btn btn-success"%>
+<% end %>
